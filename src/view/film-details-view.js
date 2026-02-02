@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbsctractView from '../framework/view/abstract-view.js';
 import {createFilmDetailsInfoTemplate} from './film-details-info-template.js';
 import {createFilmDetailsCommentsTemplate} from './film-details-comments-template.js';
 import {createFilmDetailsFormTemplate} from './film-details-form-template.js';
@@ -35,25 +35,27 @@ const createFilmDetailsTemplate = ({filmInfo}, comments) =>
     </section>
  `;
 
-export default class FilmDetailsView {
+export default class FilmDetailsView extends AbsctractView {
+  #film = null;
+  #comments = null;
+
   constructor(film, comments) {
-    this.film = film;
-    this.comments = comments;
+    super();
+    this.#film = film;
+    this.#comments = comments;
   }
 
-  getTemplate() {
-    return createFilmDetailsTemplate(this.film, this.comments);
+  get template() {
+    return createFilmDetailsTemplate(this.#film, this.#comments);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
+  setCloseBtnClickHandler(callback) {
+    this._callback.closeBtnClick = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeBtnClickHandler);
   }
 
-  removeElement() {
-    this.element = null;
-  }
+  #closeBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.closeBtnClick();
+  };
 }
