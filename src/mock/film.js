@@ -37,7 +37,7 @@ const generateFilm = () => ({
   actors: Array.from({length: NAME_COUNT}, () => `${getRandomValue(names)} ${getRandomValue(surnames)}`),
   release: {
     date: getDate(DateType.FILM_INFO),
-    releaseCountry: getRandomValue(countries)
+    releaseСountry: getRandomValue(countries)
   },
   runtime: getRandomInteger(Runtime.MIN, Runtime.MAX),
   genre:  Array.from({length: getRandomInteger(GenreCount.MIN, GenreCount.MAX)}, () => getRandomValue(genres)),
